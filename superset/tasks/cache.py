@@ -27,7 +27,6 @@ from requests.exceptions import RequestException
 from sqlalchemy import and_, func
 
 from superset import app, db
-from superset.models.core import Dashboard, Log, Slice
 from superset.models.tags import Tag, TaggedObject
 from superset.tasks.celery_app import app as celery_app
 from superset.utils.core import parse_human_datetime
@@ -135,6 +134,7 @@ class DummyStrategy(Strategy):
 
     def get_urls(self):
         session = db.create_scoped_session()
+        from superset.models.core import Slice
         charts = session.query(Slice).all()
 
         return [get_url({'form_data': get_form_data(chart.id)}) for chart in charts]
@@ -169,6 +169,7 @@ class TopNDashboardsStrategy(Strategy):
         urls = []
         session = db.create_scoped_session()
 
+        from superset.models.core import Dashboard, Log
         records = (
             session
             .query(Log.dashboard_id, func.count(Log.dashboard_id))
@@ -240,6 +241,7 @@ class DashboardTagsStrategy(Strategy):
             ))
             .all()
         )
+        from superset.models.core import Dashboard
         dash_ids = [tagged_object.object_id for tagged_object in tagged_objects]
         tagged_dashboards = (
             session
@@ -262,6 +264,7 @@ class DashboardTagsStrategy(Strategy):
             .all()
         )
         chart_ids = [tagged_object.object_id for tagged_object in tagged_objects]
+        from superset.models.core import Slice
         tagged_charts = (
             session
             .query(Slice)

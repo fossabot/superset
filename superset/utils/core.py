@@ -25,6 +25,7 @@ from email.mime.text import MIMEText
 from email.utils import formatdate
 import errno
 import functools
+import hashlib
 import json
 import logging
 import os
@@ -1107,3 +1108,11 @@ def shortid() -> str:
 class DatasourceName(NamedTuple):
     table: str
     schema: str
+
+
+def md5_hex(s, precision=None):
+    s = str(s).encode('utf-8')
+    h = hashlib.md5(s).hexdigest()
+    if precision:
+        h = h[:precision]
+    return h

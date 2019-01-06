@@ -238,6 +238,7 @@ IMG_UPLOAD_URL = '/static/uploads/'
 CACHE_DEFAULT_TIMEOUT = 60 * 60 * 24
 CACHE_CONFIG = {'CACHE_TYPE': 'null'}
 TABLE_NAMES_CACHE_CONFIG = {'CACHE_TYPE': 'null'}
+THUMBNAIL_CACHE_CONFIG = {'CACHE_TYPE': 'null'}
 
 # CORS Options
 ENABLE_CORS = False
@@ -375,6 +376,8 @@ WARNING_MSG = None
 # Default celery config is to use SQLA as a broker, in a production setting
 # you'll want to use a proper broker as specified here:
 # http://docs.celeryproject.org/en/latest/getting-started/brokers/index.html
+
+CELERYD_LOG_LEVEL = 'DEBUG'
 
 
 class CeleryConfig(object):
@@ -591,6 +594,8 @@ EMAIL_REPORTS_WEBDRIVER = 'firefox'
 WEBDRIVER_WINDOW = {
     'dashboard': (1600, 2000),
     'slice': (3000, 1200),
+    'thumbnail_chart': (800, 600),
+    'thumbnail_dashboard': (800, 600),
 }
 
 # Any config options to be passed as-is to the webdriver

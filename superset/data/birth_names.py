@@ -87,7 +87,16 @@ def load_birth_names():
         'granularity_sqla': 'ds',
         'groupby': [],
         'metric': 'sum__num',
-        'metrics': ['sum__num'],
+        'metrics': [{
+            'expressionType': 'SIMPLE',
+            'column': {
+                'column_name': 'num',
+                'type': 'BIGINT',
+            },
+            'aggregate': 'SUM',
+            'label': 'Births',
+            'optionName': 'metric_11',
+        }],
         'row_limit': config.get('ROW_LIMIT'),
         'since': '100 years ago',
         'until': 'now',
@@ -251,7 +260,7 @@ def load_birth_names():
             datasource_id=tbl.id,
             params=get_slice_json(
                 defaults,
-                viz_type='pivot_table', metrics=['sum__num'],
+                viz_type='pivot_table',
                 groupby=['name'], columns=['state'])),
         Slice(
             slice_name='Number of Girls',

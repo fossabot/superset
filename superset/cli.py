@@ -159,7 +159,6 @@ def version(verbose):
 
 def load_examples_run(load_test_data):
     print('Loading examples into {}'.format(db))
-
     data.load_css_templates()
 
     print('Loading energy related dataset')

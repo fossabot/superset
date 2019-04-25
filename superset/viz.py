@@ -675,7 +675,7 @@ class PivotTableViz(BaseViz):
                 DTTM_ALIAS in df):
             del df[DTTM_ALIAS]
 
-        aggfunc = self.form_data.get('pandas_aggfunc')
+        aggfunc = self.form_data.get('pandas_aggfunc') or 'sum'
 
         # Ensure that Pandas's sum function mimics that of SQL.
         if aggfunc == 'sum':

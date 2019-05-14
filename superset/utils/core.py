@@ -1100,3 +1100,10 @@ def MediumText() -> Variant:
 
 def shortid() -> str:
     return '{}'.format(uuid.uuid4())[-12:]
+
+
+def merge_dicts(*args) -> dict:
+    target = {}
+    for d in args:
+        target.update(d)
+    return target

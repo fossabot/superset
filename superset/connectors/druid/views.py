@@ -41,6 +41,10 @@ from . import models
 class DruidColumnInlineView(CompactCRUDMixin, SupersetModelView):  # noqa
     datamodel = SQLAInterface(models.DruidColumn)
 
+    class_permission_name = 'Datasource'
+    previous_permission_name = 'DruidColumnInlineView'
+
+
     list_title = _('Columns')
     show_title = _('Show Druid Column')
     add_title = _('Add Druid Column')
@@ -109,6 +113,9 @@ appbuilder.add_view_no_menu(DruidColumnInlineView)
 class DruidMetricInlineView(CompactCRUDMixin, SupersetModelView):  # noqa
     datamodel = SQLAInterface(models.DruidMetric)
 
+    class_permission_name = 'Datasource'
+    class_permission_name = 'DruidMetricInlineView'
+
     list_title = _('Metrics')
     show_title = _('Show Druid Metric')
     add_title = _('Add Druid Metric')
@@ -159,6 +166,9 @@ appbuilder.add_view_no_menu(DruidMetricInlineView)
 
 class DruidClusterModelView(SupersetModelView, DeleteMixin, YamlExportMixin):  # noqa
     datamodel = SQLAInterface(models.DruidCluster)
+
+    class_permission_name = 'Database'
+    class_permission_name = 'DruidClusterModelView'
 
     list_title = _('Druid Clusters')
     show_title = _('Show Druid Cluster')
@@ -224,6 +234,9 @@ appbuilder.add_view(
 
 class DruidDatasourceModelView(DatasourceModelView, DeleteMixin, YamlExportMixin):  # noqa
     datamodel = SQLAInterface(models.DruidDatasource)
+
+    class_permission_name = 'Datasource'
+    previous_permission_name = 'DruidDatasourceModelView'
 
     list_title = _('Druid Datasources')
     show_title = _('Show Druid Datasource')

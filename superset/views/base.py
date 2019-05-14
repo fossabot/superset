@@ -171,8 +171,20 @@ class SupersetListWidget(ListWidget):
 
 
 class SupersetModelView(ModelView):
+    """This mixin should be used in every Superset ModelView"""
     page_size = 100
     list_widget = SupersetListWidget
+
+    # simplifying / aggregating model perms
+    method_permission_name = {
+        'add': 'write',
+        'delete': 'write',
+        'download': 'write',
+        'edit': 'write',
+        'list': 'read',
+        'muldelete': 'write',
+        'show': 'read',
+    }
 
 
 class ListWidgetWithCheckboxes(ListWidget):

@@ -190,6 +190,9 @@ class DashboardFilter(SupersetFilter):
 class DatabaseView(SupersetModelView, DeleteMixin, YamlExportMixin):  # noqa
     datamodel = SQLAInterface(models.Database)
 
+    class_permission_name = 'Database'
+    previous_permission_name = 'DatabaseView'
+
     list_title = _('Databases')
     show_title = _('Show Database')
     add_title = _('Add Database')
@@ -488,6 +491,8 @@ if config.get('ENABLE_ACCESS_REQUEST'):
 
 class SliceModelView(SupersetModelView, DeleteMixin):  # noqa
     route_base = '/chart'
+    class_permission_name = 'Slice'
+    previous_permission_name = 'SliceModelView'
     datamodel = SQLAInterface(models.Slice)
 
     list_title = _('Charts')
@@ -603,6 +608,18 @@ appbuilder.add_view_no_menu(SliceAddView)
 
 class DashboardModelView(SupersetModelView, DeleteMixin):  # noqa
     route_base = '/dashboard'
+
+    class_permission_name = 'Dashboard'
+    previous_permission_name = 'DashboardModelView'
+
+    method_permission_name = utils.merge_dicts(
+        SupersetModelView.method_permission_name,
+        {
+            'mulexport': 'read',
+            'download_dashboards': 'read',
+        },
+    )
+
     datamodel = SQLAInterface(models.Dashboard)
 
     list_title = _('Dashboards')
@@ -737,6 +754,9 @@ appbuilder.add_view_no_menu(DashboardAddView)
 
 class LogModelView(SupersetModelView):
     datamodel = SQLAInterface(models.Log)
+
+    class_permission_name = 'Log'
+    previous_permission_name = 'LogModelView'
 
     list_title = _('Logs')
     show_title = _('Show Log')
@@ -3020,6 +3040,9 @@ appbuilder.add_view_no_menu(Superset)
 
 class CssTemplateModelView(SupersetModelView, DeleteMixin):
     datamodel = SQLAInterface(models.CssTemplate)
+
+    class_permission_name = 'CssTemplate'
+    previous_permission_name = 'CssTemplateModelView'
 
     list_title = _('CSS Templates')
     show_title = _('Show CSS Template')

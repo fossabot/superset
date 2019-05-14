@@ -46,6 +46,10 @@ from .base import DeleteMixin, SupersetModelView
 
 
 class EmailScheduleView(SupersetModelView, DeleteMixin):
+
+    class_permission_name = 'ScheduleEmail'
+    previous_permission_name = 'EmailScheduleView'
+
     _extra_data = {
         'test_email': False,
         'test_email_recipients': None,

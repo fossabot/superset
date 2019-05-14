@@ -46,7 +46,6 @@ class AnnotationModelView(SupersetModelView, DeleteMixin):  # noqa
     datamodel = SQLAInterface(Annotation)
 
     class_permission_name = 'Annotation'
-    previous_permission_name = 'AnnotationModelView'
 
     list_title = _('List Annotation')
     show_title = _('Show Annotation')
@@ -94,7 +93,6 @@ class AnnotationLayerModelView(SupersetModelView, DeleteMixin):
     datamodel = SQLAInterface(AnnotationLayer)
 
     class_permission_name = 'Annotation'
-    previous_permission_name = 'AnnotationLayerModelView'
 
     list_title = _('List Annotation Layer')
     show_title = _('Show Annotation Layer')

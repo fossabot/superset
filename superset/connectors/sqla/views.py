@@ -42,7 +42,6 @@ class TableColumnInlineView(CompactCRUDMixin, SupersetModelView):  # noqa
     datamodel = SQLAInterface(models.TableColumn)
 
     class_permission_name = 'Datasource'
-    previous_permission_name = 'TableColumnInlineView'
 
     list_title = _('Columns')
     show_title = _('Show Column')
@@ -118,7 +117,6 @@ class SqlMetricInlineView(CompactCRUDMixin, SupersetModelView):  # noqa
     datamodel = SQLAInterface(models.SqlMetric)
 
     class_permission_name = 'Datasource'
-    previous_permission_name = 'SqlMetricInlineView'
 
     list_title = _('Metrics')
     show_title = _('Show Metric')
@@ -175,7 +173,6 @@ class TableModelView(DatasourceModelView, DeleteMixin, YamlExportMixin):  # noqa
     datamodel = SQLAInterface(models.SqlaTable)
 
     class_permission_name = 'Datasource'
-    previous_permission_name = 'TableModelView'
 
     list_title = _('Tables')
     show_title = _('Show Table')

@@ -53,7 +53,6 @@ class QueryView(SupersetModelView):
     datamodel = SQLAInterface(Query)
 
     class_permission_name = 'Query'
-    previous_permission_name = 'QueryView'
 
     list_title = _('List Query')
     show_title = _('Show Query')
@@ -85,7 +84,6 @@ class SavedQueryView(SupersetModelView, DeleteMixin):
     datamodel = SQLAInterface(SavedQuery)
 
     class_permission_name = 'SavedQuery'
-    previous_permission_name = 'SavedQueryView'
 
     list_title = _('List Saved Query')
     show_title = _('Show Saved Query')

@@ -473,3 +473,8 @@ class SupersetSecurityManager(SecurityManager):
                 self.get_datasource_access_error_msg(datasource),
                 self.get_datasource_access_link(datasource),
             )
+
+    def security_cleanup(self, baseview, menu):
+        """Preventing FAB from clearing Superset-defined perms"""
+        raise NotImplementedError(
+            'Preventing FAB from clearing Superset-defined perms')

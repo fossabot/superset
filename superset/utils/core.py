@@ -32,7 +32,7 @@ import signal
 import smtplib
 import sys
 from time import struct_time
-from typing import List, Optional, Tuple
+from typing import Any, Dict, List, Optional, Tuple
 from urllib.parse import unquote_plus
 import uuid
 import zlib
@@ -1103,7 +1103,7 @@ def shortid() -> str:
 
 
 def merge_dicts(*args) -> dict:
-    target = {}
+    target: Dict[Any, Any] = dict()
     for d in args:
         target.update(d)
     return target

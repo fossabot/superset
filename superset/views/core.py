@@ -612,8 +612,8 @@ class DashboardModelView(SupersetModelView, DeleteMixin):  # noqa
     method_permission_name = utils.merge_dicts(
         SupersetModelView.method_permission_name,
         {
-            #'mulexport': 'read',
-            #'download_dashboards': 'read',
+            'mulexport': 'read',
+            'download_dashboards': 'read',
         },
     )
 
@@ -1337,10 +1337,9 @@ class Superset(BaseSupersetView):
             return redirect(datasource.default_endpoint)
 
         # slc perms
-        slice_add_perm = security_manager.can_access('can_add', 'SliceModelView')
+        slice_add_perm = security_manager.can_access('can_write', 'Slice')
         slice_overwrite_perm = is_owner(slc, g.user)
-        slice_download_perm = security_manager.can_access(
-            'can_download', 'SliceModelView')
+        slice_download_perm = security_manager.can_access('can_read', 'Slice')
 
         form_data['datasource'] = str(datasource_id) + '__' + datasource_type
 
@@ -1480,7 +1479,7 @@ class Superset(BaseSupersetView):
                 'info')
         elif request.args.get('add_to_dash') == 'new':
             # check create dashboard permissions
-            dash_add_perm = security_manager.can_access('can_add', 'DashboardModelView')
+            dash_add_perm = security_manager.can_access('can_write', 'DashboardModelView')
             if not dash_add_perm:
                 return json_error_response(
                     _('You don\'t have the rights to ') + _('create a ') + _('dashboard'),
@@ -2218,7 +2217,7 @@ class Superset(BaseSupersetView):
         dash_save_perm = security_manager.can_access('can_save_dash', 'Superset')
         superset_can_explore = security_manager.can_access('can_explore', 'Superset')
         superset_can_csv = security_manager.can_access('can_csv', 'Superset')
-        slice_can_edit = security_manager.can_access('can_edit', 'SliceModelView')
+        slice_can_edit = security_manager.can_access('can_write', 'Slice')
 
         standalone_mode = request.args.get('standalone') == 'true'
         edit_mode = request.args.get('edit') == 'true'

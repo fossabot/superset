@@ -30,9 +30,7 @@ from superset.exceptions import SupersetSecurityException
 
 class SupersetSecurityManager(SecurityManager):
     READ_ONLY_MODEL_VIEWS = {
-        'DatabaseAsync',
-        'DatabaseView',
-        'DruidClusterModelView',
+        'Database',
     }
 
     USER_MODEL_VIEWS = {
@@ -44,12 +42,7 @@ class SupersetSecurityManager(SecurityManager):
     }
 
     GAMMA_READ_ONLY_MODEL_VIEWS = {
-        'SqlMetricInlineView',
-        'TableColumnInlineView',
-        'TableModelView',
-        'DruidColumnInlineView',
-        'DruidDatasourceModelView',
-        'DruidMetricInlineView',
+        'Datasource',
     } | READ_ONLY_MODEL_VIEWS
 
     ADMIN_ONLY_VIEW_MENUS = {
@@ -79,6 +72,7 @@ class SupersetSecurityManager(SecurityManager):
     READ_ONLY_PERMISSION = {
         'can_show',
         'can_list',
+        'can_read',
     }
 
     ALPHA_ONLY_PERMISSIONS = {

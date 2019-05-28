@@ -184,6 +184,15 @@ class SupersetModelView(ModelView):
         'list': 'read',
         'muldelete': 'write',
         'show': 'read',
+        'api': 'read',
+        'api_column_add': 'write',
+        'api_column_edit': 'write',
+        'api_create': 'write',
+        'api_delete': 'write',
+        'api_get': 'read',
+        'api_read': 'read',
+        'api_readvalues': 'read',
+        'api_update': 'write',
     }
 
 

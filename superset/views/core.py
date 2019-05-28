@@ -490,7 +490,7 @@ if config.get('ENABLE_ACCESS_REQUEST'):
 
 class SliceModelView(SupersetModelView, DeleteMixin):  # noqa
     route_base = '/chart'
-    class_permission_name = 'Slice'
+    class_permission_name = 'Chart'
     datamodel = SQLAInterface(models.Slice)
 
     list_title = _('Charts')
@@ -578,6 +578,8 @@ appbuilder.add_view(
 
 class SliceAsync(SliceModelView):  # noqa
     route_base = '/sliceasync'
+    class_permission_name = 'Chart'
+
     list_columns = [
         'id', 'slice_link', 'viz_type', 'slice_name',
         'creator', 'modified', 'icons', 'changed_on_humanized',
@@ -593,6 +595,8 @@ appbuilder.add_view_no_menu(SliceAsync)
 
 class SliceAddView(SliceModelView):  # noqa
     route_base = '/sliceaddview'
+    class_permission_name = 'Chart'
+
     list_columns = [
         'id', 'slice_name', 'slice_url', 'edit_url', 'viz_type', 'params',
         'description', 'description_markeddown', 'datasource_id', 'datasource_type',

@@ -21,6 +21,17 @@ import logging
 from flask import g
 from flask_appbuilder.security.sqla import models as ab_models
 from flask_appbuilder.security.sqla.manager import SecurityManager
+from flask_appbuilder.security.views import (
+    PermissionModelView,
+    PermissionViewModelView,
+    ResetMyPasswordView,
+    ResetPasswordView,
+    RoleModelView,
+    UserDBModelView,
+    UserInfoEditView,
+    UserStatsChartView,
+    ViewMenuModelView,
+)
 from sqlalchemy import or_
 
 from superset import sql_parse
@@ -28,7 +39,122 @@ from superset.connectors.connector_registry import ConnectorRegistry
 from superset.exceptions import SupersetSecurityException
 
 
+class SupersetSecurityMappingMixin:
+    class_permission_name = 'Security'
+    method_permission_name = {
+        'add': 'write',
+        'delete': 'write',
+        'download': 'write',
+        'edit': 'write',
+        'list': 'read',
+        'muldelete': 'write',
+        'show': 'read',
+        'api': 'read',
+        'api_column_add': 'write',
+        'api_column_edit': 'write',
+        'api_create': 'write',
+        'api_delete': 'write',
+        'api_get': 'read',
+        'api_read': 'read',
+        'api_readvalues': 'read',
+        'api_update': 'write',
+        'this_form_get': 'read',
+        'this_form_post': 'write',
+        'copy_role': 'write',
+    }
+
+
+class SupersetUserStatsChartView(UserStatsChartView):
+    class_permission_name = 'Security'
+    previous_class_permission_name = 'UserStatsChartView'
+    method_permission_name = {
+        'chart': 'read',
+    }
+
+
+class SupersetResetPasswordView(SupersetSecurityMappingMixin, ResetPasswordView):
+    previous_class_permission_name = 'ResetPasswordView'
+
+
+class SupersetResetMyPasswordView(ResetMyPasswordView):
+    class_permission_name = 'SecurityUser'
+    previous_class_permission_name = 'ResetMyPasswordView'
+    method_permission_name = {
+        'this_form_get': 'write',
+        'this_form_post': 'write',
+    }
+
+
+class SupersetUserInfoEditView(UserInfoEditView):
+    class_permission_name = 'SecurityUser'
+    previous_class_permission_name = 'UserInfoEditView'
+    method_permission_name = {
+        'this_form_get': 'write',
+        'this_form_post': 'write',
+    }
+
+
+class SupersetUserDBModelView(SupersetSecurityMappingMixin, UserDBModelView):
+    previous_class_permission_name = 'UserDBModelView'
+
+
+class SupersetRoleModelView(SupersetSecurityMappingMixin, RoleModelView):
+    previous_class_permission_name = 'RoleModelView'
+
+
+class SupersetPermissionModelView(SupersetSecurityMappingMixin, PermissionModelView):
+    base_permissions = ['can_read']
+    previous_class_permission_name = 'PermissionModelView'
+    method_permission_name = {
+        'list': 'read',
+        'show': 'read',
+        'api': 'read',
+        'api_get': 'read',
+        'api_read': 'read',
+        'api_readvalues': 'read',
+    }
+
+
+class SupersetViewMenuModelView(SupersetSecurityMappingMixin, ViewMenuModelView):
+    base_permissions = ['can_read']
+    previous_class_permission_name = 'ViewMenuModelView'
+    method_permission_name = {
+        'list': 'read',
+        'show': 'read',
+        'api': 'read',
+        'api_get': 'read',
+        'api_read': 'read',
+        'api_readvalues': 'read',
+    }
+
+
+class SupersetPermissionViewModelView(
+    SupersetSecurityMappingMixin,
+    PermissionViewModelView,
+):
+    base_permissions = ['can_read']
+    previous_class_permission_name = 'PermissionViewModelView'
+    method_permission_name = {
+        'list': 'read',
+        'show': 'read',
+        'api': 'read',
+        'api_get': 'read',
+        'api_read': 'read',
+        'api_readvalues': 'read',
+    }
+
+
 class SupersetSecurityManager(SecurityManager):
+    userdbmodelview = SupersetUserDBModelView
+    rolemodelview = SupersetRoleModelView
+    permissionmodelview = SupersetPermissionModelView
+    viewmenumodelview = SupersetViewMenuModelView
+    permissionviewmodelview = SupersetPermissionViewModelView
+    resetpasswordview = SupersetResetPasswordView
+    resetmypasswordview = SupersetResetMyPasswordView
+    userinfoeditview = SupersetUserInfoEditView
+    userstatschartview = SupersetUserStatsChartView
+
     READ_ONLY_MODEL_VIEWS = {
         'Database',
     }

@@ -57,6 +57,14 @@ COMPATIBLE_LICENSES = {
 LIB_WHITELIST = {
     # AFL or BSD 3-Clause: https://github.com/kriszyp/json-schema
     'json-schema',
+    # https://github.com/josdejong/typed-function/blob/master/LICENSE
+    'typed-function',
+    # https://github.com/substack/node-optimist/blob/master/LICENSE
+    'optimist',
+    # https://github.com/Automattic/expect.js/
+    'expect.js',
+    # https://github.com/Automattic/expect.js/
+    'split',
 }
 
 

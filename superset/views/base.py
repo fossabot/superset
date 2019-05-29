@@ -193,6 +193,7 @@ class SupersetModelView(ModelView):
         'api_read': 'read',
         'api_readvalues': 'read',
         'api_update': 'write',
+        'yaml_export': 'write',
     }
 
 

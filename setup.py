@@ -116,7 +116,7 @@ setup(
         ],
         'presto': ['pyhive[presto]>=0.4.0'],
         'gsheets': ['gsheetsdb>=0.1.9'],
-        'mysql': ['mysqlclient==1.3.13'],
+        'mysql': ['mysqlclient==1.4.2.post1'],
         'postgres': ['psycopg2-binary==2.7.5'],
     },
     author='Apache Software Foundation',
